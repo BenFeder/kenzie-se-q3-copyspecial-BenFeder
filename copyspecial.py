@@ -70,8 +70,6 @@ def main(args):
     else:
         for files in special_files:
             print(files)
-        parser.print_usage()
-        sys.exit(1)
 
 
 if __name__ == "__main__":

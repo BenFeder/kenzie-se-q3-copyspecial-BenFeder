@@ -23,17 +23,19 @@ def get_special_paths(dirname):
     special_file_list = []
     special_pattern = r'__\w+__'
     for files in file_list:
-        special_find = re.findall(special_pattern, files)
+        abs_files = os.path.abspath(os.path.join(dirname, files))
+        special_find = re.findall(special_pattern, abs_files)
         if special_find:
-            special_file_list.append(files)
+            special_file_list.append(abs_files)
     return special_file_list
 
 
 def copy_to(path_list, dest_dir):
     """Gets absolute paths of special files and copies to destination dir"""
+    if not os.path.isdir(dest_dir):
+        os.makedirs(dest_dir)
     for files in path_list:
         shutil.copy(files, dest_dir)
-    return dest_dir
 
 
 def zip_to(path_list, dest_zip):
@@ -66,6 +68,8 @@ def main(args):
     elif ns.tozip:
         zip_to(special_files, ns.tozip)
     else:
+        for files in special_files:
+            print(files)
         parser.print_usage()
         sys.exit(1)
 

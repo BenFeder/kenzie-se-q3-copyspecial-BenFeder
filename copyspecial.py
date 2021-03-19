@@ -38,7 +38,7 @@ def copy_to(path_list, dest_dir):
 
 def zip_to(path_list, dest_zip):
     """Gets absolute paths of special files and zips them to destination dir"""
-    args = ['zip', '-j', 'dest_dir']
+    args = ['zip', '-j', dest_zip]
     args.extend(path_list)
     subprocess.run(args)
 
